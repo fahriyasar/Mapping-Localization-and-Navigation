@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<launch>
+   
+  <arg name="load_world" default="true"/>
+  <arg name="world_file" default="amr_world.sdf"/>
+  <arg name="map_file" default="$(find amr_navigation)/maps/gmapping.yaml"/>
+
+
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+  
+  <param name="robot_description" textfile="$(find amr_urdf)/urdf/amr_urdf.urdf"/>
+  <include file="$(find amr_navigation)/launch/amcl.launch" />
+  <include file="$(find amr_navigation)/launch/move_base.launch" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find amr_urdf)/world/$(arg world_file)"/> 
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+  <!--node pkg="gmapping" type="slam_gmapping" name="maping_node">
+    <param name="base_frame" value="base_link" />
+    <param name="odom_frame" value="odom" />
+    <param name="delta" value="0.1" />
+   </node-->
+   <node name="robot_state_publisher_node" pkg="robot_state_publisher" type="robot_state_publisher"/>
+   <node name="rviz_node" pkg="rviz" type="rviz" output="screen" args="-d $(find amr_navigation)/rviz/rviz.rviz"/>
+
+</launch>

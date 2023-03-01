@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="load_world" default="true"/>
+  <arg name="world_file" default="empty_world.sdf"/>
+
+  <param name="robot_description" textfile="$(find amr_urdf)/urdf/amr_urdf.urdf"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find amr_urdf)/world/$(arg world_file)"/> 
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="recording" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <include file="$(find amr_urdf)/launch/display.launch" />
+
+</launch>

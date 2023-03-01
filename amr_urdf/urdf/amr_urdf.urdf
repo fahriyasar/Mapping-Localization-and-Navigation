@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<robot name="amr">
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="48.1684" />
+      <inertia
+        ixx="0.0"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0"
+        iyz="0.0"
+        izz="0.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <box size="0.5 0.4 0.2"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.5 0.4 0.2"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lw_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="4.0" />
+      <inertia
+        ixx="0.0"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0"
+        iyz="0.0"
+        izz="0.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.12"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.12"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lw_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="lw_link"/>
+    <origin xyz="-0.2 0.225 -0.05" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="10000" velocity="100"/>
+  </joint>
+
+  <link name="rw_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="4.0" />
+      <inertia
+        ixx="0.0"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0"
+        iyz="0.0"
+        izz="0.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.12"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder length="0.05" radius="0.12"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="rw_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="rw_link"/>
+    <origin xyz="-0.2 -0.225 -0.05" rpy="1.5708 0 0"/>
+    <axis xyz="0 0 -1"/>
+    <limit effort="10000" velocity="100"/>
+  </joint>
+
+  <link name="castor_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.08" />
+      <inertia
+        ixx="0.0"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0"
+        iyz="0.0"
+        izz="0.0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <sphere radius="0.035"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="castor_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="castor_link"/>
+    <origin xyz="0.215 0 -0.135" rpy="0 0 0 "/>
+    <axis xyz="0 0 1" />
+  </joint>
+
+  <link name="laser_link">
+    <visual>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="laser_link"/>
+    <origin xyz="0.2 0 0.125" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/> 
+  </joint>
+
+  <!-- 
+  #########################################################
+  #################   Gazebo Elements   ##################
+  #########################################################
+  -->
+
+  <gazebo reference="base_link">
+    <mu1>0.5</mu1>
+    <mu2>0.5</mu2>
+    <kp>5000000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <selfCollide>false</selfCollide>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="lw_link">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>5000000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <selfCollide>false</selfCollide>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <gazebo reference="rw_link">
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>5000000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <selfCollide>false</selfCollide>
+    <material>Gazebo/Gray</material>
+  </gazebo>
+
+  <gazebo reference="castor_link">
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
+    <kp>5000000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <selfCollide>false</selfCollide>
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <!-- 
+  #########################################################
+  #################    Gazebo Plugins    ##################
+  #########################################################
+  -->
+
+  <!-- Laser controller -->
+  <gazebo reference="laser_link">
+    <sensor type="ray" name="laser_sensor">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>10</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.15</min>
+          <max>25.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin name="gazebo_ros_laser_controller" filename="libgazebo_ros_laser.so">
+        <topicName>/scan</topicName>
+        <frameName>laser_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- Diff Drive Controller -->
+  <gazebo>
+    <plugin name="amr_controller" filename="libgazebo_ros_diff_drive.so">
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <odometrySource>world</odometrySource>
+      <publishOdomTF>true</publishOdomTF>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>false</publishWheelTF>
+      <publishTf>true</publishTf>
+      <publishWheelJointState>true</publishWheelJointState>
+      <legacyMode>false</legacyMode>
+      <updateRate>20</updateRate>
+      <leftJoint>lw_joint</leftJoint>
+      <rightJoint>rw_joint</rightJoint>
+      <wheelSeparation>0.45</wheelSeparation>
+      <wheelDiameter>0.24</wheelDiameter>
+      <wheelAcceleration>0.35</wheelAcceleration>
+      <wheelTorque>200</wheelTorque>
+      <rosDebugLevel>na</rosDebugLevel>
+      <cmd_vel_timeout>0.27</cmd_vel_timeout>
+    </plugin>
+  </gazebo>
+
+  <!-- Gazebo ROS Control -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+</robot>

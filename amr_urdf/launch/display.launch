@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<launch>
+
+  <node name="robot_state_publisher_node" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  <node name="rviz_node" pkg="rviz" type="rviz" args="-d $(find amr_urdf)/rviz/display_config.rviz"/>
+
+</launch>
